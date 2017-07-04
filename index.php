@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>InsertInto</title>
+	<title>Insert Into</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,7 +14,7 @@
 <div class="container-fluid text-center">
 	<div class="row content">
 		<div class="col-sm-offset-2 col-sm-8 text-left">
-			<h1>InsertInto</h1>
+			<h1>Insert Into</h1>
 
 			<p>I often found the need to take a list of IDs and merge them one by one into a command that I wanted to run on the command line, in SQL, etc. I've done this forever using
 			a spreadsheet and concatenating values. I've finally decided to make an easier tool for doing this.  So, here you go.</p>
@@ -47,14 +47,14 @@
 			</div>
 
 		</div>
-		<div class="col-sm-2 sidenav">
+<!--		<div class="col-sm-2 sidenav">
 			<div class="well">
 				<p>ADS</p>
 			</div>
 			<div class="well">
 				<p>ADS</p>
 			</div>
-		</div>
+		</div>-->
 	</div>
 </div>
 
