@@ -59,7 +59,7 @@
 </div>
 
 <footer class="container-fluid text-center">
-	<p>Developed by <a href="https://www.shawnhooper.ca/">Shawn Hooper</a> - Licensed under GNU Public License v3</p>
+	<p>Developed by <a href="https://www.shawnhooper.ca/">Shawn Hooper</a> - Contribute on GitHub: <a target="_blank" href="https://github.com/shawnhooper/insertinto">https://github.com/shawnhooper/insertinto</a></p>
 </footer>
 
 <script type="text/javascript">
