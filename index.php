@@ -11,55 +11,27 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">Logo</a>
-		</div>
-		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Projects</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-			</ul>
-		</div>
-	</div>
-</nav>
-
 <div class="container-fluid text-center">
 	<div class="row content">
-		<div class="col-sm-2 sidenav">
-			<p><a href="#">Link</a></p>
-			<p><a href="#">Link</a></p>
-			<p><a href="#">Link</a></p>
-		</div>
-		<div class="col-sm-8 text-left">
+		<div class="col-sm-offset-2 col-sm-8 text-left">
 			<h1>InsertInto</h1>
 
 			<p>I often found the need to take a list of IDs and merge them one by one into a command that I wanted to run on the command line, in SQL, etc. I've done this forever using
 			a spreadsheet and concatenating values. I've finally decided to make an easier tool for doing this.  So, here you go.</p>
 
 			<div class="row content">
-				<div class="col-md-offset-2 col-xs-12 col-md-3">
+				<div class="col-md-offset-1 col-xs-12 col-md-3">
 					<label>List of values to insert:</label><br />
 					<textarea id="list_of_values" cols="40" rows="15" style="text-align:left;"></textarea>
 				</div>
 				<div class="col-xs-12 col-md-offset-1 col-md-6 text-left">
 					<label>String into insert value into:</label><br />
 					<input type="text" style="width:100%;" id="string_to_insert_into" />
-					<p>Place the two percent signs (%%) into the string above to indicate where you'd like the values inserted into.</p>
+                    <p>Place <strong>{insert}</strong> into the string above to indicate where you'd like the values inserted into.</p>
 
 					<div>
 						<button id="insert-button" class="btn btn-success">Insert Values!</button>
+                        <button id="clear-button" class="btn btn-secondary">Clear All Values</button>
 					</div>
 				</div>
 			</div>
@@ -90,13 +62,25 @@
 
 	jQuery(document).ready(function() {
 
-	    jQuery("#insert-button").click(function(e) {
-            e.preventDefault();
+	    jQuery("#clear-button").click(function() {
+            jQuery("#string_to_insert_into").val('');
+            jQuery("#list_of_values").val('');
+            jQuery("#output").empty();
+        });
 
+	    jQuery("#insert-button").click(function(e) {
+
+	        // Is the {insert} placeholder there
+            if ( jQuery("#string_to_insert_into").val().indexOf('{insert}') < 0 ) {
+                alert('The {insert} placeholder is missing from the "String to Insert Value Into" box.');
+                return false;
+            }
+
+            jQuery("#output").empty();
             var ks = jQuery('#list_of_values').val().split("\n");
             jQuery.each(ks, function(k){
 
-                jQuery("#output").append( jQuery("#string_to_insert_into").val().replace('%%', ks[k]) + "\n" );
+                jQuery("#output").append( jQuery("#string_to_insert_into").val().replace('{insert}', ks[k]) + "\n" );
 
             });
 
