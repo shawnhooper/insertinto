@@ -29,6 +29,10 @@
 					<input type="text" style="width:100%;" id="string_to_insert_into" />
                     <p>Place <strong>{insert}</strong> into the string above to indicate where you'd like the values inserted into.</p>
 
+                    <div style="padding-top:20px;padding-bottom: 20px;">
+                        <input type="checkbox" id="sql_sanitize" value="1" /> <label for="sql_sanitize">Escape Values for SQL statement</label>
+                    </div>
+
 					<div>
 						<button id="insert-button" class="btn btn-success">Insert Values!</button>
                         <button id="clear-button" class="btn btn-secondary">Clear All Values</button>
@@ -76,11 +80,20 @@
                 return false;
             }
 
+            // Are we doing SQL sanitization
+            var sqlSanitize = jQuery("#sql_sanitize").is(":checked");
+
             jQuery("#output").empty();
             var ks = jQuery('#list_of_values').val().split("\n");
             jQuery.each(ks, function(k){
 
-                jQuery("#output").append( jQuery("#string_to_insert_into").val().replace('{insert}', ks[k]) + "\n" );
+                var insertThis = ks[k];
+
+                if (sqlSanitize) {
+                    insertThis = mysql_real_escape_string( insertThis );
+                }
+                console.log(insertThis);
+                jQuery("#output").append( jQuery("#string_to_insert_into").val().replace('{insert}', insertThis ) + "\n" );
 
             });
 
@@ -88,6 +101,32 @@
         });
 
 	});
+
+	// Thanks Paul! https://stackoverflow.com/questions/7744912/making-a-javascript-string-sql-friendly
+    function mysql_real_escape_string (str) {
+        return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
+            switch (char) {
+                case "\0":
+                    return "\\0";
+                case "\x08":
+                    return "\\b";
+                case "\x09":
+                    return "\\t";
+                case "\x1a":
+                    return "\\z";
+                case "\n":
+                    return "\\n";
+                case "\r":
+                    return "\\r";
+                case "\"":
+                case "'":
+                case "\\":
+                case "%":
+                    return "\\"+char; // prepends a backslash to backslash, percent,
+                                      // and double/single quotes
+            }
+        });
+    }
 
 </script>
 
